@@ -12,7 +12,7 @@ using TurneroMedico.Context;
 namespace TurneroMedico.Migrations
 {
     [DbContext(typeof(TurnosDatabaseContext))]
-    [Migration("20241107005040_Inicial")]
+    [Migration("20241107012356_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />

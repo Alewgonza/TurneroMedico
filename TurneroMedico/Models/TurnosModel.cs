@@ -17,7 +17,7 @@ namespace TurneroMedico.Models
 
         [Required(ErrorMessage = "Por favor complete su DNI")]
         [Display(Name = "DNI:")]
-        [MaxLength(8), MinLength(8)]
+        [Range(0, 99999999)]
         public int Dni { get; set; }
 
         [DataType(DataType.EmailAddress)]
@@ -29,7 +29,7 @@ namespace TurneroMedico.Models
         [DataType(DataType.PhoneNumber)]
         [Required(ErrorMessage = "Por favor ingrese su nro de teléfono")]
         [Display(Name = "Número de telefono")]
-        [MaxLength(15), MinLength(10)]
+        [Range(0, 99999999999)]
         public int Telefono { get; set; }
 
         [DataType(DataType.DateTime)]
