@@ -12,7 +12,7 @@ using TurneroMedico.Context;
 namespace TurneroMedico.Migrations
 {
     [DbContext(typeof(TurnosDatabaseContext))]
-    [Migration("20241107001646_Inicial")]
+    [Migration("20241107005040_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -33,9 +33,9 @@ namespace TurneroMedico.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Dni")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Dni")
+                        .HasMaxLength(8)
+                        .HasColumnType("int");
 
                     b.Property<int>("DoctorElegido")
                         .HasColumnType("int");
@@ -52,11 +52,12 @@ namespace TurneroMedico.Migrations
 
                     b.Property<string>("NombreApellido")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
-                    b.Property<string>("Telefono")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Telefono")
+                        .HasMaxLength(15)
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
