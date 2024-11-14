@@ -7,7 +7,13 @@ namespace TurneroMedico
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddDbContext<TurnosDatabaseContext>(options => options.UseSqlServer(builder.Configuration["ConnectionString:TurnosDBConnection"]));
+            //builder.Services.AddDbContext<TurnosDatabaseContext>(options => options.UseSqlServer(builder.Configuration["ConnectionString:TurnosDBConnection"]));
+            builder.Services.AddDbContext<TurnosDatabaseContext>(options =>
+            {
+                // https://stackoverflow.com/questions/48202403/instance-of-entity-type-cannot-be-tracked-because-another-instance-with-same-key
+                options.UseSqlServer(builder.Configuration["ConnectionString:TurnosDBConnection"]);
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            });
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             var app = builder.Build();

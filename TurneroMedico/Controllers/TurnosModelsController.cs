@@ -8,7 +8,6 @@ namespace TurneroMedico.Controllers
     public class TurnosModelsController : Controller
     {
         private readonly TurnosDatabaseContext _context;
-
         public TurnosModelsController(TurnosDatabaseContext context)
         {
             _context = context;
@@ -44,6 +43,23 @@ namespace TurneroMedico.Controllers
             return View();
         }
 
+        private TurnosModel? validarDuplicadoSuperpuesto(TurnosModel turnosModel)
+        {
+            // Query Syntax
+            //var turnturnoDuplicadoo = (from turno in _context.Turnos
+            //                           where turno.FechaTurno == turnosModel.FechaTurno
+            //                           select turno).FirstOrDefault();
+
+            var validacionDuracion = turnosModel.FechaTurno.AddMinutes(30);
+            var turnoDuplicado = _context.Turnos.Where(turno =>
+                                                 turnosModel.FechaTurno > turno.FechaTurno && turnosModel.FechaTurno < turno.FechaFinTurno
+                                                 || validacionDuracion > turno.FechaTurno && validacionDuracion < turno.FechaFinTurno
+                                                 ).FirstOrDefault();
+
+            return turnoDuplicado;
+        }
+
+
         // POST: TurnosModels/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -53,9 +69,22 @@ namespace TurneroMedico.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(turnosModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var esDuplicado = validarDuplicadoSuperpuesto(turnosModel);
+
+                if (esDuplicado != null)
+                {
+                    ModelState.AddModelError("FechaTurno", 
+                        $"Ya existe un turno para la fecha seleccionada." +
+                        $"Siguiente turno disponible {esDuplicado.FechaFinTurno}");
+                    return View(turnosModel);
+                }
+                else
+                {
+                    turnosModel.FechaFinTurno = turnosModel.FechaTurno.AddMinutes(turnosModel.DuracionTurno);
+                    _context.Add(turnosModel);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(turnosModel);
         }
@@ -81,7 +110,7 @@ namespace TurneroMedico.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NombreApellido,Dni,Email,Telefono,FechaTurno,EspecialidadElegida,DoctorElegido")] TurnosModel turnosModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NombreApellido,Dni,Email,Telefono,FechaTurno,FechaFinTurno,EspecialidadElegida,DoctorElegido")] TurnosModel turnosModel)
         {
             if (id != turnosModel.Id)
             {
@@ -90,10 +119,22 @@ namespace TurneroMedico.Controllers
 
             if (ModelState.IsValid)
             {
+                var esDuplicado = validarDuplicadoSuperpuesto(turnosModel);
+
                 try
                 {
-                    _context.Update(turnosModel);
-                    await _context.SaveChangesAsync();
+                    if (esDuplicado != null && esDuplicado.Id != turnosModel.Id)
+                    {
+                        ModelState.AddModelError("FechaTurno",
+                            $"Ya existe un turno para la fecha seleccionada." +
+                            $"Siguiente turno disponible {esDuplicado.FechaFinTurno}");
+                        return View(turnosModel);
+                    } else
+                    {
+                        _context.Update(turnosModel);
+                        await _context.SaveChangesAsync();
+                    }
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {

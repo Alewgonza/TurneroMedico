@@ -29,13 +29,16 @@ namespace TurneroMedico.Models
         [DataType(DataType.PhoneNumber)]
         [Required(ErrorMessage = "Por favor ingrese su nro de teléfono")]
         [Display(Name = "Número de telefono")]
-        [Range(0, 99999999999)]
+        [Range(0, 9999999999)]
         public int Telefono { get; set; }
 
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "Por favor seleccione un turno")]
         [Display(Name = "Fecha del turno:")]
         public DateTime FechaTurno { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime FechaFinTurno { get; set; }
 
         [EnumDataType(typeof(Especialidades))]
         [Required(ErrorMessage = "Por favor seleccione una especialidad")]
@@ -46,5 +49,7 @@ namespace TurneroMedico.Models
         [Required(ErrorMessage = "Por favor seleccione un doctor")]
         [Display(Name = "Doctor:")]
         public Doctores DoctorElegido { get; set; }
+
+        public readonly int DuracionTurno = 30;
     }
 }
