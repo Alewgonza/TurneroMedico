@@ -18,10 +18,11 @@ namespace TurneroMedico.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NombreApellido = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    Dni = table.Column<int>(type: "int", maxLength: 8, nullable: false),
+                    Dni = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Telefono = table.Column<int>(type: "int", maxLength: 15, nullable: false),
+                    Telefono = table.Column<int>(type: "int", nullable: false),
                     FechaTurno = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FechaFinTurno = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EspecialidadElegida = table.Column<int>(type: "int", nullable: false),
                     DoctorElegido = table.Column<int>(type: "int", nullable: false)
                 },

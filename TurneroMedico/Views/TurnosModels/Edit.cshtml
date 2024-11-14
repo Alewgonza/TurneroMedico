@@ -35,8 +35,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="FechaTurno" class="control-label"></label>
-                <input asp-for="FechaTurno" class="form-control" />
+                <input asp-for="FechaTurno" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="FechaTurno" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="FechaFinTurno" class="control-label"></label>
+                <input asp-for="FechaFinTurno" class="form-control" />
+                <span asp-validation-for="FechaFinTurno" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EspecialidadElegida" class="control-label"></label>
