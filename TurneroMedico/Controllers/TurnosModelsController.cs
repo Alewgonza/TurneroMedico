@@ -43,6 +43,7 @@ namespace TurneroMedico.Controllers
             return View();
         }
 
+
         private TurnosModel? validarDuplicadoSuperpuesto(TurnosModel turnosModel)
         {
             // Query Syntax
@@ -73,7 +74,7 @@ namespace TurneroMedico.Controllers
 
                 if (esDuplicado != null)
                 {
-                    ModelState.AddModelError("FechaTurno", 
+                    ModelState.AddModelError("FechaTurno",
                         $"Ya existe un turno para la fecha seleccionada." +
                         $"Siguiente turno disponible {esDuplicado.FechaFinTurno}");
                     return View(turnosModel);
@@ -129,12 +130,13 @@ namespace TurneroMedico.Controllers
                             $"Ya existe un turno para la fecha seleccionada." +
                             $"Siguiente turno disponible {esDuplicado.FechaFinTurno}");
                         return View(turnosModel);
-                    } else
+                    }
+                    else
                     {
                         _context.Update(turnosModel);
                         await _context.SaveChangesAsync();
                     }
-                    
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -188,6 +190,44 @@ namespace TurneroMedico.Controllers
         private bool TurnosModelExists(int id)
         {
             return _context.Turnos.Any(e => e.Id == id);
+        }
+
+
+        // GET: TurnosModels/Search
+        public IActionResult Search()
+        {
+            var emptyModel = new List<TurnosModel>();
+            return View(emptyModel);
+        }
+
+        // POST: TurnosModels/Search
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Search(string dni)
+        {
+            if (string.IsNullOrEmpty(dni))
+            {
+                ModelState.AddModelError("dni", "Por favor ingrese un DNI válido.");
+                return View();
+            }
+
+            if (!int.TryParse(dni, out int dniParsed))
+            {
+                ModelState.AddModelError("dni", "El DNI debe ser numérico.");
+                return View();
+            }
+
+            var turnos = await _context.Turnos
+                .Where(t => t.Dni == dniParsed)
+                .ToListAsync();
+
+            if (!turnos.Any())
+            {
+                ViewBag.Message = "No se encontraron turnos para el DNI proporcionado.";
+                return View();
+            }
+
+            return View("Search", turnos); 
         }
     }
 }
