@@ -22,6 +22,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
                 <th>@Html.DisplayNameFor(model => model.NombreApellido)</th>
                 <th>@Html.DisplayNameFor(model => model.Dni)</th>
                 <th>@Html.DisplayNameFor(model => model.Email)</th>
@@ -36,6 +37,7 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
                     <td>@Html.DisplayFor(modelItem => item.NombreApellido)</td>
                     <td>@Html.DisplayFor(modelItem => item.Dni)</td>
                     <td>@Html.DisplayFor(modelItem => item.Email)</td>
@@ -44,7 +46,7 @@
                     <td>@Html.DisplayFor(modelItem => item.EspecialidadElegida)</td>
                     <td>@Html.DisplayFor(modelItem => item.DoctorElegido)</td>
                     <td>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Eliminar turno</a>
                     </td>
                 </tr>
             }

@@ -8,6 +8,7 @@ namespace TurneroMedico.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Display(Name = "Número de turno")]
         public int Id { get; set; }
 
         [DataType(DataType.Text)]
