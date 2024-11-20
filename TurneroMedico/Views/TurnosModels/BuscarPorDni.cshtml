@@ -5,39 +5,47 @@
 
 <h2>Buscar Turnos por DNI</h2>
 
-<form asp-action="BuscarPorDni" method="get">
+<form asp-action="Search" method="post" class="mb-3">
     <div class="form-group">
         <label for="dni">DNI:</label>
-        <input type="number" name="dni" class="form-control" required />
+        <input type="text" name="dni" id="dni" class="form-control" placeholder="Ingrese el DNI" required />
     </div>
-    <button type="submit" class="btn btn-primary">Buscar</button>
+    <div class="form-group mt-2">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+        <a asp-action="Search" class="btn btn-secondary">Limpiar</a>
+    </div>
 </form>
 
 @if (Model != null && Model.Any())
 {
-    <table class="table table-striped">
+    <h3>Resultados:</h3>
+    <table class="table">
         <thead>
             <tr>
-                <th>Nombre y Apellido</th>
-                <th>DNI</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Fecha del Turno</th>
-                <th>Especialidad</th>
-                <th>Doctor</th>
+                <th>@Html.DisplayNameFor(model => model.NombreApellido)</th>
+                <th>@Html.DisplayNameFor(model => model.Dni)</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <th>@Html.DisplayNameFor(model => model.Telefono)</th>
+                <th>@Html.DisplayNameFor(model => model.FechaTurno)</th>
+                <th>@Html.DisplayNameFor(model => model.EspecialidadElegida)</th>
+                <th>@Html.DisplayNameFor(model => model.DoctorElegido)</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var turno in Model)
+            @foreach (var item in Model)
             {
                 <tr>
-                    <td>@turno.NombreApellido</td>
-                    <td>@turno.Dni</td>
-                    <td>@turno.Email</td>
-                    <td>@turno.Telefono</td>
-                    <td>@turno.FechaTurno</td>
-                    <td>@turno.EspecialidadElegida</td>
-                    <td>@turno.DoctorElegido</td>
+                    <td>@Html.DisplayFor(modelItem => item.NombreApellido)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Dni)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaTurno)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EspecialidadElegida)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DoctorElegido)</td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>
+                    </td>
                 </tr>
             }
         </tbody>

@@ -37,27 +37,12 @@ namespace TurneroMedico.Controllers
             return View(turnosModel);
         }
 
-        //--------------------------------------------------
-        public async Task<IActionResult> BuscarPorDni(int? dni)
-        {
-            if (dni == null)
-            {
-                return View(); // Esto cargará la vista en blanco para el formulario de búsqueda
-            }
-
-            var turnos = await _context.Turnos
-                .Where(t => t.Dni == dni)
-                .ToListAsync();
-
-            return View(turnos); // Esto pasa los resultados de la búsqueda a la vista
-        }
-        //----------------------------------------------------------
-
         // GET: TurnosModels/Create
         public IActionResult Create()
         {
             return View();
         }
+
 
         private TurnosModel? validarDuplicadoSuperpuesto(TurnosModel turnosModel)
         {
@@ -89,7 +74,7 @@ namespace TurneroMedico.Controllers
 
                 if (esDuplicado != null)
                 {
-                    ModelState.AddModelError("FechaTurno", 
+                    ModelState.AddModelError("FechaTurno",
                         $"Ya existe un turno para la fecha seleccionada." +
                         $"Siguiente turno disponible {esDuplicado.FechaFinTurno}");
                     return View(turnosModel);
@@ -145,12 +130,13 @@ namespace TurneroMedico.Controllers
                             $"Ya existe un turno para la fecha seleccionada." +
                             $"Siguiente turno disponible {esDuplicado.FechaFinTurno}");
                         return View(turnosModel);
-                    } else
+                    }
+                    else
                     {
                         _context.Update(turnosModel);
                         await _context.SaveChangesAsync();
                     }
-                    
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -204,6 +190,42 @@ namespace TurneroMedico.Controllers
         private bool TurnosModelExists(int id)
         {
             return _context.Turnos.Any(e => e.Id == id);
+        }
+
+        // GET: TurnosModels/BuscarPorDni
+        public async Task<IActionResult> BuscarPorDni()
+        {
+            return View(); 
+        }
+
+        // POST: TurnosModels/Search
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Search(string dni)
+        {
+            if (string.IsNullOrEmpty(dni))
+            {
+                ModelState.AddModelError("dni", "Por favor ingrese un DNI válido.");
+                return View();
+            }
+
+            if (!int.TryParse(dni, out int dniParsed))
+            {
+                ModelState.AddModelError("dni", "El DNI debe ser numérico.");
+                return View();
+            }
+
+            var turnos = await _context.Turnos
+                .Where(t => t.Dni == dniParsed)
+                .ToListAsync();
+
+            if (!turnos.Any())
+            {
+                ViewBag.Message = "No se encontraron turnos para el DNI proporcionado.";
+                return View();
+            }
+
+            return View("Search", turnos);
         }
     }
 }
