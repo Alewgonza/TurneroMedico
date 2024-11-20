@@ -37,6 +37,22 @@ namespace TurneroMedico.Controllers
             return View(turnosModel);
         }
 
+        //--------------------------------------------------
+        public async Task<IActionResult> BuscarPorDni(int? dni)
+        {
+            if (dni == null)
+            {
+                return View(); // Esto cargará la vista en blanco para el formulario de búsqueda
+            }
+
+            var turnos = await _context.Turnos
+                .Where(t => t.Dni == dni)
+                .ToListAsync();
+
+            return View(turnos); // Esto pasa los resultados de la búsqueda a la vista
+        }
+        //----------------------------------------------------------
+
         // GET: TurnosModels/Create
         public IActionResult Create()
         {

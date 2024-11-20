@@ -1,0 +1,49 @@
+﻿@model IEnumerable<TurneroMedico.Models.TurnosModel>
+@{
+    ViewData["Title"] = "Buscar Turnos por DNI";
+}
+
+<h2>Buscar Turnos por DNI</h2>
+
+<form asp-action="BuscarPorDni" method="get">
+    <div class="form-group">
+        <label for="dni">DNI:</label>
+        <input type="number" name="dni" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre y Apellido</th>
+                <th>DNI</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Fecha del Turno</th>
+                <th>Especialidad</th>
+                <th>Doctor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var turno in Model)
+            {
+                <tr>
+                    <td>@turno.NombreApellido</td>
+                    <td>@turno.Dni</td>
+                    <td>@turno.Email</td>
+                    <td>@turno.Telefono</td>
+                    <td>@turno.FechaTurno</td>
+                    <td>@turno.EspecialidadElegida</td>
+                    <td>@turno.DoctorElegido</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model != null)
+{
+    <p>No se encontraron turnos para el DNI ingresado.</p>
+}
