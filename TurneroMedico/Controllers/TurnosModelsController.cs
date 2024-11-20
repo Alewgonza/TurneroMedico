@@ -225,7 +225,7 @@ namespace TurneroMedico.Controllers
                 return View();
             }
 
-            return View("Search", turnos);
+            return View("BuscarPorDni", turnos);
         }
     }
 }
