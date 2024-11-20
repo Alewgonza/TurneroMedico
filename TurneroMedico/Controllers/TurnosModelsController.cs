@@ -53,10 +53,12 @@ namespace TurneroMedico.Controllers
 
             var validacionDuracion = turnosModel.FechaTurno.AddMinutes(30);
             var turnoDuplicado = _context.Turnos.Where(turno =>
-                                                 turnosModel.FechaTurno > turno.FechaTurno && turnosModel.FechaTurno < turno.FechaFinTurno
-                                                 || validacionDuracion > turno.FechaTurno && validacionDuracion < turno.FechaFinTurno
-                                                 ).FirstOrDefault();
-
+                                                 turnosModel.DoctorElegido == turno.DoctorElegido &&
+                                                 (
+                                                    (turnosModel.FechaTurno >= turno.FechaTurno && turnosModel.FechaTurno < turno.FechaFinTurno) || // Inicio del nuevo turno dentro del rango de un turno existente
+                                                    (validacionDuracion > turno.FechaTurno && validacionDuracion <= turno.FechaFinTurno)            // Fin del nuevo turno dentro del rango de un turno existente
+                                                 )
+                                               ).FirstOrDefault();
             return turnoDuplicado;
         }
 
@@ -68,6 +70,11 @@ namespace TurneroMedico.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NombreApellido,Dni,Email,Telefono,FechaTurno,EspecialidadElegida,DoctorElegido")] TurnosModel turnosModel)
         {
+            if (turnosModel.FechaTurno.Hour < 9 || turnosModel.FechaTurno.Hour >= 22)
+            {
+                ModelState.AddModelError("FechaTurno", "El turno debe ser agendado entre las 9:00 AM y las 22:00 PM.");
+            }
+
             if (ModelState.IsValid)
             {
                 var esDuplicado = validarDuplicadoSuperpuesto(turnosModel);
