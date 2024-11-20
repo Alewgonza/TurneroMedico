@@ -37,22 +37,6 @@ namespace TurneroMedico.Controllers
             return View(turnosModel);
         }
 
-        //--------------------------------------------------
-        public async Task<IActionResult> BuscarPorDni(int? dni)
-        {
-            if (dni == null)
-            {
-                return View(); // Esto cargará la vista en blanco para el formulario de búsqueda
-            }
-
-            var turnos = await _context.Turnos
-                .Where(t => t.Dni == dni)
-                .ToListAsync();
-
-            return View(turnos); // Esto pasa los resultados de la búsqueda a la vista
-        }
-        //----------------------------------------------------------
-
         // GET: TurnosModels/Create
         public IActionResult Create()
         {
@@ -208,12 +192,10 @@ namespace TurneroMedico.Controllers
             return _context.Turnos.Any(e => e.Id == id);
         }
 
-
-        // GET: TurnosModels/Search
-        public IActionResult Search()
+        // GET: TurnosModels/BuscarPorDni
+        public async Task<IActionResult> BuscarPorDni()
         {
-            var emptyModel = new List<TurnosModel>();
-            return View(emptyModel);
+            return View(); 
         }
 
         // POST: TurnosModels/Search
@@ -243,7 +225,7 @@ namespace TurneroMedico.Controllers
                 return View();
             }
 
-            return View("Search", turnos); 
+            return View("Search", turnos);
         }
     }
 }
