@@ -1,0 +1,12 @@
+﻿.banner {
+    position: relative; /* To position text inside the banner */
+    text-align: center;
+    height: 240px;
+    margin: 0;
+    padding: 0;
+    color: black;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    background-image: url('https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+}
