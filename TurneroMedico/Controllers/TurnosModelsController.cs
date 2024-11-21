@@ -91,6 +91,8 @@ namespace TurneroMedico.Controllers
                     turnosModel.FechaFinTurno = turnosModel.FechaTurno.AddMinutes(turnosModel.DuracionTurno);
                     _context.Add(turnosModel);
                     await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "El turno se reservó correctamente";
                     return RedirectToAction(nameof(Index));
                 }
             }
