@@ -15,7 +15,7 @@
 <body class="d-flex flex-column min-vh-100">
     <header>
         <div class="banner"></div>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-dark border-bottom box-shadow mb-3" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TurneroMedico</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -31,13 +31,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>-->
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TurnosModels" asp-action="Create">Reservar Turno</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="TurnosModels" asp-action="Create">Reservar Turno</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TurnosModels" asp-action="Index">Listado Turnos</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="TurnosModels" asp-action="Index">Listado Turnos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TurnosModels" asp-action="BuscarPorDni">Buscar Turnos</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="TurnosModels" asp-action="BuscarPorDni">Buscar Turnos</a>
                         </li>
                     </ul>
                 </div>
@@ -48,8 +48,8 @@
         @RenderBody()
     </main>
 
-    <footer class="border-top footer text-muted">
-        <div class="container text-center">
+    <footer class="border-top footer text-muted footer">
+        <div class="container text-center text-light">
             &copy; 2024 - TurneroMedico - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

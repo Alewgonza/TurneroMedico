@@ -4,57 +4,66 @@
     ViewData["Title"] = "Editar Turno";
 }
 
-<h1>Editar Turno</h1>
-
-<h4>TurnosModel</h4>
+<h1 class="mb-4">Editar Turno</h1>
+<h4 class="mb-3">Cargue los datos del turno</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="NombreApellido" class="control-label"></label>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="mb-1">
+                <label asp-for="NombreApellido" class="form-label"></label>
                 <input asp-for="NombreApellido" class="form-control" />
                 <span asp-validation-for="NombreApellido" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Dni" class="control-label"></label>
+
+            <div class="mb-1">
+                <label asp-for="Dni" class="form-label"></label>
                 <input asp-for="Dni" class="form-control" />
                 <span asp-validation-for="Dni" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
+
+            <div class="mb-1">
+                <label asp-for="Email" class="form-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Telefono" class="control-label"></label>
+
+            <div class="mb-1">
+                <label asp-for="Telefono" class="form-label"></label>
                 <input asp-for="Telefono" class="form-control" />
                 <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaTurno" class="control-label"></label>
-                <input asp-for="FechaTurno" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+
+            <div class="mb-1">
+                <label asp-for="FechaTurno" class="form-label"></label>
+                <input asp-for="FechaTurno" class="form-control" type="datetime-local" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="FechaTurno" class="text-danger"></span>
             </div>
+
             <div class="form-group" hidden>
                 <label asp-for="FechaFinTurno" class="control-label"></label>
                 <input asp-for="FechaFinTurno" class="form-control" />
                 <span asp-validation-for="FechaFinTurno" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EspecialidadElegida" class="control-label"></label>
-                <select asp-for="EspecialidadElegida" class="form-control" asp-items="Html.GetEnumSelectList<Especialidades>()"></select>
+
+            <div class="mb-1">
+                <label asp-for="EspecialidadElegida" class="form-label"></label>
+                <select asp-for="EspecialidadElegida" class="form-select" asp-items="Html.GetEnumSelectList<Especialidades>()"></select>
                 <span asp-validation-for="EspecialidadElegida" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DoctorElegido" class="control-label"></label>
-                <select asp-for="DoctorElegido" class="form-control" asp-items="Html.GetEnumSelectList<Doctores>()"></select>
+
+            <div class="mb-1">
+                <label asp-for="DoctorElegido" class="form-label"></label>
+                <select asp-for="DoctorElegido" class="form-select" asp-items="Html.GetEnumSelectList<Doctores>()"></select>
                 <span asp-validation-for="DoctorElegido" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <div class="d-flex justify-content-center gap-3 mt-1">
+                <button type="submit" class="btn btn-dark">Reservar</button>
+                <a asp-action="Index" class="btn btn-secondary">Volver</a>
             </div>
         </form>
     </div>
