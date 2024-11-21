@@ -20,7 +20,7 @@ html {
 body {
     margin-bottom: 60px;
     padding-bottom: 20px;
-    background-color: #e5e7e2;
+    background-color: #e5e7e2 !important;
 }
 
 .footer {

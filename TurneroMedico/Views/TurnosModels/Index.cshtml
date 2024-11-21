@@ -6,8 +6,8 @@
 
 <h1>Listado de turnos</h1>
 
-<table class="table table-hover table-dark">
-    <thead>
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark text-center">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
@@ -37,38 +37,41 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreApellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dni)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaTurno)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EspecialidadElegida)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DoctorElegido)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Cancelar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr class="text-center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreApellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dni)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaTurno)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EspecialidadElegida)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoctorElegido)
+                </td>
+                <td>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Cancelar</a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

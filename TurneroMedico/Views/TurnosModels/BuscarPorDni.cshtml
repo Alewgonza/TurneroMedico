@@ -19,34 +19,70 @@
 @if (Model != null && Model.Any())
 {
     <h3>Resultados:</h3>
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark text-center">
             <tr>
-                <th>@Html.DisplayNameFor(model => model.Id)</th>
-                <th>@Html.DisplayNameFor(model => model.NombreApellido)</th>
-                <th>@Html.DisplayNameFor(model => model.Dni)</th>
-                <th>@Html.DisplayNameFor(model => model.Email)</th>
-                <th>@Html.DisplayNameFor(model => model.Telefono)</th>
-                <th>@Html.DisplayNameFor(model => model.FechaTurno)</th>
-                <th>@Html.DisplayNameFor(model => model.EspecialidadElegida)</th>
-                <th>@Html.DisplayNameFor(model => model.DoctorElegido)</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NombreApellido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Dni)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaTurno)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EspecialidadElegida)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DoctorElegido)
+                </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                    <td>@Html.DisplayFor(modelItem => item.NombreApellido)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Dni)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
-                    <td>@Html.DisplayFor(modelItem => item.FechaTurno)</td>
-                    <td>@Html.DisplayFor(modelItem => item.EspecialidadElegida)</td>
-                    <td>@Html.DisplayFor(modelItem => item.DoctorElegido)</td>
+                <tr class="text-center">
                     <td>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Eliminar turno</a>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NombreApellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dni)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaTurno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EspecialidadElegida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DoctorElegido)
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Cancelar</a>
+                        </div>
                     </td>
                 </tr>
             }
